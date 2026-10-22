@@ -1,0 +1,17 @@
+{
+  "id":"./",
+  "name":"J-3912 Concept — Controle de Vazão e Fluxo Mínimo",
+  "short_name":"J-3912 Concept",
+  "description":"Aprendizado interativo, controle da rotação e proteção hidráulica com fluxo mínimo.",
+  "start_url":"./",
+  "scope":"./",
+  "display":"standalone",
+  "background_color":"#081420",
+  "theme_color":"#0b1725",
+  "lang":"pt-BR",
+  "orientation":"any",
+  "icons":[
+    {"src":"./assets/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"./assets/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}
