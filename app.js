@@ -200,9 +200,10 @@ window.addEventListener('appinstalled',()=>{installPrompt=null;toast('Aplicativo
 async function installApp(){if(installPrompt){installPrompt.prompt();const res=await installPrompt.userChoice;installPrompt=null;if(res.outcome!=='accepted')toast('Instalação cancelada; o aplicativo continua no navegador.');return}toast('Para instalar: use o menu do navegador → Instalar app / Adicionar à tela inicial. Use HTTPS (ex.: GitHub Pages).')}
 async function swUpdate(){if('serviceWorker' in navigator){try{const reg=await navigator.serviceWorker.getRegistration();if(!reg){toast('Sem Service Worker ativo neste endereço.');return}await reg.update();if(reg.waiting){reg.waiting.postMessage({type:'SKIP_WAITING'});toast('Atualização disponível. Recarregando…')}else toast('Busca de atualização realizada. Se necessário, atualize a página.')}catch(e){toast('Não foi possível consultar a atualização: '+e.message)}}else{toast('Este navegador não oferece Service Worker. Recarregue pelo navegador.')}}
 function init(){
+ prepareFundamentosCards();
  document.querySelectorAll('[data-view]').forEach(btn=>btn.addEventListener('click',()=>changeView(btn.dataset.view)));
  document.querySelectorAll('[data-go]').forEach(btn=>btn.addEventListener('click',()=>changeView(btn.dataset.go)));
- document.querySelectorAll('[data-fund-jump]').forEach(btn=>btn.addEventListener('click',()=>{const el=document.getElementById(btn.dataset.fundJump);if(el)el.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'})}));
+ document.querySelectorAll('[data-fund-jump]').forEach(btn=>btn.addEventListener('click',()=>{const el=document.getElementById(btn.dataset.fundJump);if(!el)return;openFundamentosCard(el);setTimeout(()=>el.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'}),40)}));
  for(const id of controls)$(id).addEventListener('input',()=>refreshControls());
  ['modeA','modeB','strategy','ftLocation','valveFault','ftFault'].forEach(id=>$(id).addEventListener('change',()=>{refreshControls();if(id==='ftFault')state.ftFreezeInitialized=false;logEvent('Configuração alterada: '+$(id).options[$(id).selectedIndex].text)}));
  document.querySelectorAll('[data-preset]').forEach(x=>x.addEventListener('click',()=>setPreset(x.dataset.preset)));
@@ -222,4 +223,64 @@ function init(){
    document.addEventListener('visibilitychange',()=>{if(!document.hidden)navigator.serviceWorker.getRegistration().then(r=>r?.update()).catch(()=>{})});
  }
 }
+// V1.2.2: revisão da seção Operações Unitárias e Mecânica dos Fluidos no mobile.
+// O conteúdo continua completo: somente a apresentação dos 12 tópicos muda.
+const fundamentalsMobile = window.matchMedia('(max-width: 780px)');
+let fundamentosCards = [];
+function isFundamentosMobile(){return fundamentalsMobile.matches}
+function openFundamentosCard(card,scroll=false){
+ if(!isFundamentosMobile() || !card || !card.classList.contains('fund-collapsible'))return;
+ fundamentosCards.forEach(other=>{
+  const active=other===card;
+  other.dataset.fundOpen=active?'true':'false';
+  const button=other.querySelector('.fund-toggle');
+  if(button)button.setAttribute('aria-expanded',String(active));
+ });
+ if(card.querySelector('#curveChart'))requestAnimationFrame(()=>setTimeout(curveDraw,35));
+ if(scroll)setTimeout(()=>card.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'}),50);
+}
+function prepareFundamentosCards(){
+ const section=document.getElementById('fundamentos');if(!section || section.dataset.mobilePrepared==='true')return;
+ section.dataset.mobilePrepared='true';
+ const grid=section.querySelector('.knowledge-grid');
+ const cards=[...grid.querySelectorAll(':scope > article.panel'),...section.querySelectorAll(':scope > .panel, :scope > article.panel')];
+ fundamentosCards=cards;
+ const hint=document.createElement('p');hint.className='fund-mobile-intro';hint.textContent='12 temas técnicos · Toque em um tema para abrir a explicação completa. Ao abrir outro, o anterior se recolhe.';
+ grid.parentNode.insertBefore(hint,grid);
+ const groupTitles={0:['01','Fundamentos do bombeamento'],5:['02','Baixa vazão e proteção da bomba'],9:['03','Controle integrado da J-3912']};
+ cards.forEach((card, i)=>{
+  const title=card.querySelector(':scope > h2');if(!title)return;
+  const heading=title.textContent.trim();
+  const content=document.createElement('div');content.className='fund-topic-content';content.id=`fund-topic-body-${i+1}`;
+  while(title.nextSibling)content.appendChild(title.nextSibling);
+  card.appendChild(content);
+  const toggle=document.createElement('button');toggle.className='fund-toggle';toggle.type='button';toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-controls',content.id);
+  const idx=document.createElement('span');idx.className='fund-index';idx.textContent=String(i+1).padStart(2,'0');
+  const txt=document.createElement('span');txt.className='fund-title';txt.textContent=heading.replace(/^\d+\.\s*/, '');
+  const arrow=document.createElement('span');arrow.className='fund-chevron';arrow.setAttribute('aria-hidden','true');arrow.textContent='⌄';
+  toggle.append(idx,txt,arrow);title.replaceChildren(toggle);
+  card.classList.add('fund-collapsible');card.dataset.fundOpen='false';
+  toggle.addEventListener('click',()=>{
+   if(!isFundamentosMobile())return;
+   if(card.dataset.fundOpen==='true'){
+    card.dataset.fundOpen='false';toggle.setAttribute('aria-expanded','false');return;
+   }
+   openFundamentosCard(card,true);
+  });
+  if(i in groupTitles){
+   const header=document.createElement('div');header.className='fund-group-heading';
+   const num=document.createElement('span');num.textContent=groupTitles[i][0];
+   const name=document.createElement('strong');name.textContent=groupTitles[i][1];
+   header.append(num,name);card.before(header);
+  }
+ });
+ fundamentalsMobile.addEventListener('change',()=>{
+  if(isFundamentosMobile()){
+   fundamentosCards.forEach(c=>{c.dataset.fundOpen='false';c.querySelector('.fund-toggle')?.setAttribute('aria-expanded','false')});
+  }else{
+   requestAnimationFrame(curveDraw);
+  }
+ });
+}
+
 window.addEventListener('DOMContentLoaded',init);

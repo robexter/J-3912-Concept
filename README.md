@@ -55,3 +55,11 @@ HTML/CSS/JS locais, ícones 192×192 / 512×512, manifesto standalone e SW cache
 - Navegação rápida dentro da seção (Bombeamento, Curvas e afinidade, Baixa vazão, Controle integrado).
 - Preservados os 12 tópicos, seus textos técnicos, a interatividade do controle de rotação, os modos CAS/AUTO/MAN, o simulador integrado, cenários e quizzes.
 - Identificador do cache PWA atualizado para disparar nova instalação de recursos após a publicação.
+
+
+## V1.2.2 — Correção de layout em Operações Unitárias / Mecânica dos Fluidos
+- Mobile: 12 tópicos recolhíveis, organizados em 3 grupos, um aberto por vez. Nenhuma explicação ou fórmula removida.
+- Desktop: conteúdo permanece expandido.
+- Curva hidráulica redimensionada ao abrir seu tópico; simulação de afinidade mantida.
+- IMPORTANTE: a publicação V1.2 continua no GitHub até o usuário substituir os arquivos do repositório. Enviar o ZIP não atualiza automaticamente o GitHub Pages.
+- Após publicar, conferir no DevTools o arquivo `app.css` novo e a marca `V1.2.2`. Se o PWA continuar antigo, botão Atualizar + fechar/reabrir, ou limpar apenas os dados do site para testar.

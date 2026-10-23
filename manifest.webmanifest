@@ -2,7 +2,7 @@
   "id": "./",
   "name": "J-3912 Concept V1.2.1 — Controle Integrado de Nível e Vazão",
   "short_name": "J-3912 Concept",
-  "description": "Malha completa LT-39152, dois LICs em AUTO, SS-DUAL, rotação J-3912 e fluxo mínimo com simulações interativas.",
+  "description": "J-3912 Concept — versão 1.2.2, seção Operações Unitárias e Mecânica dos Fluidos adaptada para celular.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

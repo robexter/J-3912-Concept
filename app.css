@@ -53,3 +53,57 @@
  #fundamentos .three div:last-child{grid-column:1/-1}
  #fundamentos canvas#curveChart{height:205px}
 }
+
+
+/* V1.2.2 — Layout compacto, sem reduzir conteúdo, para Operações Unitárias e Mecânica dos Fluidos */
+#fundamentos .fund-mobile-intro,
+#fundamentos .fund-group-heading{display:none}
+#fundamentos .fund-collapsible h2{margin:0 0 14px}
+#fundamentos .fund-toggle{display:flex;align-items:center;gap:9px;width:100%;padding:0;background:none;border:0;color:inherit;text-align:left;font:inherit;letter-spacing:inherit;line-height:inherit;cursor:default}
+#fundamentos .fund-index{display:inline;color:var(--mint);margin-right:4px;font-size:.9em}
+#fundamentos .fund-title{flex:1;min-width:0}
+#fundamentos .fund-chevron{display:none}
+#fundamentos .fund-topic-content{display:block;min-width:0}
+@media(max-width:780px){
+ #fundamentos{width:100%;min-width:0;overflow-x:clip}
+ #fundamentos .page-heading{margin-bottom:13px}
+ #fundamentos .page-heading h1{font-size:clamp(1.65rem,6.15vw,2.25rem);line-height:1.2;letter-spacing:-.028em;overflow-wrap:normal}
+ #fundamentos .page-heading p{max-width:62ch;font-size:.94rem;line-height:1.5;margin-bottom:0}
+ #fundamentos .fundamentos-jump{margin:12px 0 14px;padding-bottom:10px}
+ #fundamentos .fund-mobile-intro{display:block;background:#102c3c;border-left:3px solid var(--mint);padding:11px 13px;border-radius:8px;margin:0 0 18px;font-size:.87rem;color:#cce4ef;line-height:1.45}
+ #fundamentos .knowledge-grid{display:flex;flex-direction:column;gap:9px;min-width:0}
+ #fundamentos .fund-group-heading{display:flex;align-items:center;gap:10px;margin:14px 0 2px;min-width:0}
+ #fundamentos .fund-group-heading>span{display:grid;place-items:center;width:28px;height:28px;flex:none;border-radius:8px;background:#184b56;border:1px solid #3a858c;color:var(--mint);font-size:.73rem;font-weight:800}
+ #fundamentos .fund-group-heading>strong{font-size:.94rem;color:#e4f7fa;overflow-wrap:break-word;line-height:1.3}
+ #fundamentos .fund-collapsible{padding:0!important;margin:0!important;border-radius:12px;background:#12293a;overflow:hidden;box-shadow:0 2px 8px #0002}
+ #fundamentos .fund-collapsible>h2{margin:0!important;font-size:1rem;line-height:1.3;letter-spacing:0}
+ #fundamentos .fund-toggle{display:flex;align-items:center;gap:11px;min-height:68px;padding:13px 12px;color:#eaf5fb;cursor:pointer;touch-action:manipulation}
+ #fundamentos .fund-toggle:focus-visible{outline:2px solid var(--mint);outline-offset:-3px;border-radius:11px}
+ #fundamentos .fund-index{display:grid;place-items:center;flex:none;width:31px;height:31px;border-radius:9px;background:#1b4e60;color:#9ae7f1;font-size:.77rem;font-weight:750;line-height:1}
+ #fundamentos .fund-title{display:block;flex:1;font-size:clamp(.88rem,3.8vw,1.02rem);line-height:1.28;font-weight:650;overflow-wrap:break-word;word-break:normal}
+ #fundamentos .fund-chevron{display:grid;place-items:center;flex:none;width:27px;height:27px;border:1px solid #427087;border-radius:8px;font-size:1.24rem;line-height:1;color:var(--mint);transition:transform .2s ease}
+ #fundamentos .fund-collapsible[data-fund-open='true']{border-color:#49b8aa;background:#142c3d}
+ #fundamentos .fund-collapsible[data-fund-open='true'] .fund-chevron{transform:rotate(180deg)}
+ #fundamentos .fund-collapsible .fund-topic-content{display:none;padding:0 15px 15px;border-top:1px solid #2b5365;min-width:0}
+ #fundamentos .fund-collapsible[data-fund-open='true'] .fund-topic-content{display:block}
+ #fundamentos .fund-topic-content>p:first-child{margin-top:13px}
+ #fundamentos .fund-topic-content>p:last-child{margin-bottom:0}
+ #fundamentos .fund-topic-content p{font-size:.94rem;line-height:1.58;overflow-wrap:break-word}
+ #fundamentos .fund-topic-content .formula{width:100%;max-width:100%;overflow-wrap:anywhere;word-break:normal;font-size:clamp(.86rem,3.9vw,1.08rem);line-height:1.45;padding:12px 8px}
+ #fundamentos .fund-topic-content .affinity{width:100%;min-width:0}
+ #fundamentos .fund-topic-content .three{grid-template-columns:repeat(3,minmax(0,1fr))}
+ #fundamentos .fund-topic-content .three div{min-width:0}
+ #fundamentos .fund-topic-content canvas#curveChart{height:215px;max-width:100%;width:100%}
+ #fundamentos .fund-topic-content .fundamentos-curve-legend{font-size:.79rem}
+ #fundamentos .fundamentos-jump button{min-height:42px}
+ #fundamentos [id^="fundamentos-"]{scroll-margin-top:128px}
+}
+@media(max-width:350px){
+ #fundamentos .fund-toggle{min-height:67px;padding:12px 10px;gap:9px}
+ #fundamentos .fund-index{width:28px;height:28px}
+ #fundamentos .fund-title{font-size:.9rem}
+ #fundamentos .fund-collapsible .fund-topic-content{padding:0 11px 13px}
+ #fundamentos .fund-topic-content .three{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #fundamentos .fund-topic-content .three>div:last-child{grid-column:1/-1}
+}
+@media(prefers-reduced-motion: reduce){#fundamentos .fund-chevron{transition:none}}
