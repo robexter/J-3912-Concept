@@ -45,3 +45,13 @@ Setpoints e ganhos dos dois LICs, localização dos FT-A/B relativamente ao reci
 ## Responsividade e instalação
 
 HTML/CSS/JS locais, ícones 192×192 / 512×512, manifesto standalone e SW cache de assets essenciais. Os novos controles usam empilhamento responsivo e a interface não depende de bibliotecas remotas. Em navegador compatível, a instalação é disponibilizada conforme condições do próprio sistema.
+
+
+## V1.2.1 — responsividade de Operações Unitárias e Mecânica dos Fluidos
+
+- Melhoria localizada nos cartões técnicos do módulo **Operações unitárias** para larguras móveis entre 320 e 780 px.
+- Gráfico de curvas hidráulicas adaptativo; indicadores de leis de afinidade refluem em telas estreitas.
+- Fórmulas legíveis com proteção contra transbordamento horizontal.
+- Navegação rápida dentro da seção (Bombeamento, Curvas e afinidade, Baixa vazão, Controle integrado).
+- Preservados os 12 tópicos, seus textos técnicos, a interatividade do controle de rotação, os modos CAS/AUTO/MAN, o simulador integrado, cenários e quizzes.
+- Identificador do cache PWA atualizado para disparar nova instalação de recursos após a publicação.

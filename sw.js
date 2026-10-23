@@ -1,5 +1,5 @@
 // Atualização: altere CACHE_VERSION a cada publicação.
-const CACHE_VERSION='j3912-concept-v1-2-20261023-01';
+const CACHE_VERSION='j3912-concept-v1-2-1-fundamentos-mobile-20261023';
 const CORE=['./','./index.html','./app.css','./app.js','./integrado.css','./integrado.js','./manifest.webmanifest','./assets/icon-192.png','./assets/icon-512.png','./assets/icon.svg','./assets/tela-j3912.png','./assets/malha-completa-j3912.jpg'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_VERSION).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE_VERSION&&k.startsWith('j3912-concept')).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
