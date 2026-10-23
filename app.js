@@ -121,10 +121,10 @@ function render(){const p=read(),q=state.qa+state.qr,low=q<p.spb-5,near=q<p.spb+
 }
 let frameHandle=0;
 function loop(){if(state.running){const steps=+($('timeScale').value||1)*.18;tick(steps);render()}frameHandle=setTimeout(loop,180)}
-function curveDraw(){const cEl=$('curveChart');if(!cEl||!cEl.clientWidth)return;const W=cEl.clientWidth,H=220,ratio=Math.min(window.devicePixelRatio||1,2);cEl.height=H*ratio;cEl.width=W*ratio;const c=cEl.getContext('2d');c.scale(ratio,ratio);c.clearRect(0,0,W,H);const pad={l:44,r:15,t:15,b:27};const ww=W-pad.l-pad.r,hh=H-pad.t-pad.b;const xy=(q,h)=>[pad.l+ww*q/230,pad.t+hh*(1-h/520)];
- c.strokeStyle='#315064';c.lineWidth=1;c.beginPath();c.moveTo(pad.l,pad.t);c.lineTo(pad.l,H-pad.b);c.lineTo(W-pad.r,H-pad.b);c.stroke();c.fillStyle='#b8cedc';c.font='11px Segoe UI';c.fillText('H',10,17);c.fillText('Q →',W-40,H-5);
+function curveDraw(){const cEl=$('curveChart');if(!cEl||!cEl.clientWidth)return;const W=cEl.clientWidth,H=W<290?205:220,ratio=Math.min(window.devicePixelRatio||1,2);cEl.height=H*ratio;cEl.width=W*ratio;const c=cEl.getContext('2d');c.scale(ratio,ratio);c.clearRect(0,0,W,H);const pad={l:W<290?31:44,r:W<290?10:15,t:15,b:27};const ww=W-pad.l-pad.r,hh=H-pad.t-pad.b;const xy=(q,h)=>[pad.l+ww*q/230,pad.t+hh*(1-h/520)];
+ c.strokeStyle='#315064';c.lineWidth=1;c.beginPath();c.moveTo(pad.l,pad.t);c.lineTo(pad.l,H-pad.b);c.lineTo(W-pad.r,H-pad.b);c.stroke();c.fillStyle='#b8cedc';c.font=(W<290?'10px':'11px')+' Segoe UI';c.fillText('H',10,17);c.fillText('Q →',W-40,H-5);
  for(const [factor,col] of [[1,'#75bbf4'],[.83,'#6ddab6']]){c.beginPath();for(let q=0;q<=225;q+=3){let h=400*factor*factor-.007*q*q;let [x,y]=xy(q,h);q===0?c.moveTo(x,y):c.lineTo(x,y)}c.strokeStyle=col;c.lineWidth=2.5;c.stroke()}
- c.beginPath();for(let q=0;q<=225;q+=3){let h=70+.013*q*q;let [x,y]=xy(q,h);q===0?c.moveTo(x,y):c.lineTo(x,y)}c.strokeStyle='#efb565';c.stroke();c.fillStyle='#b8cedc';c.fillText('Curva sistema',W*.55,25);
+ c.beginPath();for(let q=0;q<=225;q+=3){let h=70+.013*q*q;let [x,y]=xy(q,h);q===0?c.moveTo(x,y):c.lineTo(x,y)}c.strokeStyle='#efb565';c.stroke();c.fillStyle='#b8cedc';c.fillText(W<290?'Sistema':'Curva sistema',W*.55,25);
 }
 const topics={
 ft:['SS-DUAL FS-39164A — PV selecionada',`<p>Na arquitetura completa existem <b>dois transmissores</b>, FT-39164A e FT-39164B, ligados ao <b>SS-DUAL FS-39164A</b>. A saída selecionada alimenta a PV dos FIC-39164A e FIC-39164B. Esta bancada simplificada representa somente essa <b>PV equivalente</b>, sem reproduzir o seletor. Para exercitar GOOD/BAD e MAN/AUTO, abra “Malha completa · Interativa”.</p><p>A posição física real dos FTs antes/depois da derivação de reciclo ainda precisa de confirmação, pois altera a interpretação da vazão mínima.</p>`],
@@ -202,6 +202,7 @@ async function swUpdate(){if('serviceWorker' in navigator){try{const reg=await n
 function init(){
  document.querySelectorAll('[data-view]').forEach(btn=>btn.addEventListener('click',()=>changeView(btn.dataset.view)));
  document.querySelectorAll('[data-go]').forEach(btn=>btn.addEventListener('click',()=>changeView(btn.dataset.go)));
+ document.querySelectorAll('[data-fund-jump]').forEach(btn=>btn.addEventListener('click',()=>{const el=document.getElementById(btn.dataset.fundJump);if(el)el.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'})}));
  for(const id of controls)$(id).addEventListener('input',()=>refreshControls());
  ['modeA','modeB','strategy','ftLocation','valveFault','ftFault'].forEach(id=>$(id).addEventListener('change',()=>{refreshControls();if(id==='ftFault')state.ftFreezeInitialized=false;logEvent('Configuração alterada: '+$(id).options[$(id).selectedIndex].text)}));
  document.querySelectorAll('[data-preset]').forEach(x=>x.addEventListener('click',()=>setPreset(x.dataset.preset)));
