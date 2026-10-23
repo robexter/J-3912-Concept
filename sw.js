@@ -1,14 +1,5 @@
-// Atualização: altere CACHE_VERSION a cada publicação.
-const CACHE_VERSION='j3912-concept-v1-2-1-fundamentos-mobile-20261023';
-const CORE=['./','./index.html','./app.css','./app.js','./integrado.css','./integrado.js','./manifest.webmanifest','./assets/icon-192.png','./assets/icon-512.png','./assets/icon.svg','./assets/tela-j3912.png','./assets/malha-completa-j3912.jpg'];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_VERSION).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE_VERSION&&k.startsWith('j3912-concept')).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
-self.addEventListener('fetch',e=>{
-  const r=e.request;if(r.method!=='GET'||new URL(r.url).origin!==self.location.origin)return;
-  if(r.mode==='navigate'||/\/(index\.html|app\.js|app\.css|integrado\.js|integrado\.css|manifest\.webmanifest)$/.test(new URL(r.url).pathname)){
-    e.respondWith(fetch(r).then(resp=>{if(resp.ok){const copy=resp.clone();caches.open(CACHE_VERSION).then(c=>c.put(r,copy))}return resp}).catch(()=>caches.match(r).then(x=>x||caches.match('./index.html'))));
-  } else {
-    e.respondWith(caches.match(r).then(cached=>cached||fetch(r).then(resp=>{if(resp.ok){const copy=resp.clone();caches.open(CACHE_VERSION).then(c=>c.put(r,copy))}return resp})));
-  }
-});
-self.addEventListener('message',e=>{if(e.data&&e.data.type==='SKIP_WAITING')self.skipWaiting()});
+const CACHE='j3911-emergencia-v2-3-resposta-hv-20261023';
+const FILES=['./','./index.html','./styles.css','./app.js','./manifest.webmanifest','./assets/icon-192.png','./assets/icon-512.png','./assets/procedimento-original.jpg'];
+self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting()))});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE&&k.startsWith('j3911-emergencia-')).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
+self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;const u=new URL(e.request.url);if(u.origin!==location.origin)return;e.respondWith(fetch(e.request).then(r=>{if(r.ok){const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy))}return r}).catch(()=>caches.match(e.request)))});
