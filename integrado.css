@@ -11,3 +11,7 @@
 @media(prefers-reduced-motion:reduce){.int-flow-line,.int-pump-icon{animation:none}}
 .int-dialog{max-width:min(520px,calc(100vw - 28px));border-radius:15px;border:1px solid #47738b;background:#12283a;color:#e2f3f8;padding:23px;line-height:1.55}.int-dialog::backdrop{background:#020c15bd}.int-dialog h2{margin:0 0 10px;font-size:1.18rem}.int-dialog p{margin:10px 0 18px}.int-dialog button{min-width:100px}
 #integrado .int-onlyman[hidden],#integrado label[hidden]{display:none!important}
+
+/* V1.2 — orientação compacta do seletor CAS / AUTO / MAN */
+#integrado .int-mode-note{margin:0;padding:10px 12px;border:1px solid #365e70;border-radius:9px;background:#122e3f;font-size:.80rem;line-height:1.55;color:#c4deea;font-weight:400}
+#integrado #intFicAMode{color:#86d7f7;font-weight:800}

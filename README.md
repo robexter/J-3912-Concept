@@ -1,4 +1,4 @@
-# J-3912 Concept — V1.1 • Malha completa de nível, vazão e fluxo mínimo
+# J-3912 Concept — V1.2 • Malha completa + CAS/AUTO/MAN no FIC-A de nível, vazão e fluxo mínimo
 
 One-page responsiva e PWA para estudo da malha integrada do fundo da fracionadora E-3901 e bombas J-3912A/B.
 
@@ -11,6 +11,14 @@ One-page responsiva e PWA para estudo da malha integrada do fundo da fracionador
 - FT-39164A e FT-39164B são redundantes. O bloco SS-DUAL FS-39164A seleciona a PV a ser fornecida aos dois controladores de vazão. Em AUTO, a qualidade BAD do FT em operação permite seleção de outro FT GOOD; em MAN o operador define o canal.
 - FIC-39164B controla FV-39164 (recirculação de mínimo).
 - FIC-39164A: PB 60, I 15. FIC-39164B: PB 300, I 20.
+
+## Alteração pontual V1.2 — FIC-39164A
+
+- No simulador **Malha completa · Interativa**, o FIC-39164A agora oferece **CAS, AUTO e MAN**. O modo inicial é **CAS**, mantendo a arquitetura de cascata da V1.1.
+- **CAS**: SP remoto é a saída calculada do LIC-39152A (mestre de nível). **AUTO**: o FIC-A regula a vazão com **SP local independente**, ajustável na interface. **MAN**: o operador ajusta a rotação e a correção automática do FIC-A fica desabilitada.
+- O indicador de modo no diagrama, o SP ativo, o diagnóstico e as tendências seguem o SP realmente utilizado. O SP calculado pelo LIC-A permanece disponível para observação mesmo em AUTO local.
+- A troca CAS ↔ AUTO possui rastreamento didático do SP para minimizar degraus. **Não confirma a configuração real de tracking do CENTUM**.
+- Todos os outros controladores, SS-DUAL, falhas, cenários e conteúdo técnico foram preservados sem alteração funcional.
 
 ## Melhorias V1.1
 
@@ -32,7 +40,7 @@ Setpoints e ganhos dos dois LICs, localização dos FT-A/B relativamente ao reci
 2. Envie **todo o conteúdo INTERNO dessa pasta** para a raiz do repositório `robexter/J-3912-Concept`, substituindo os arquivos com os mesmos nomes: `index.html`, `app.js`, `app.css`, `sw.js`, `manifest.webmanifest`, `README.md`, `integrado.js`, `integrado.css` e pasta `assets`.
 3. Confirme que `integrado.js`, `integrado.css` e `assets/malha-completa-j3912.jpg` realmente estão na raiz / subpasta indicada.
 4. Aguarde a publicação do GitHub Pages e acesse `https://robexter.github.io/J-3912-Concept/`.
-5. Se o app já estiver instalado, abra o módulo, toque em **↻ Atualizar** e recarregue. O Service Worker usa `CACHE_VERSION` = `j3912-concept-v1-1-20261022-01`.
+5. Se o app já estiver instalado, abra o módulo, toque em **↻ Atualizar** e recarregue. O Service Worker usa `CACHE_VERSION` = `j3912-concept-v1-2-20261023-01`.
 
 ## Responsividade e instalação
 

@@ -1,8 +1,8 @@
 {
   "id":"./",
-  "name":"J-3912 Concept — Controle de Vazão e Fluxo Mínimo",
+  "name":"J-3912 Concept V1.2 — Controle Integrado de Nível e Vazão",
   "short_name":"J-3912 Concept",
-  "description":"Aprendizado interativo, controle da rotação e proteção hidráulica com fluxo mínimo.",
+  "description":"Malha completa LT-39152, dois LICs em AUTO, SS-DUAL, rotação J-3912 e fluxo mínimo com simulações interativas.",
   "start_url":"./",
   "scope":"./",
   "display":"standalone",
