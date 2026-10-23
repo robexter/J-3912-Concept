@@ -1,26 +1,17 @@
 {
-  "name": "J-3911 — Emergência Operacional Concept V2.3",
-  "short_name": "J-3911 CIC",
-  "description": "Treinamento emergência J-3911A/B. Nível responde à HV-39157, carga, bomba reserva e pumpout (modelo ilustrativo).",
-  "lang": "pt-BR",
-  "id": "./",
-  "start_url": "./index.html",
-  "scope": "./",
-  "display": "standalone",
-  "background_color": "#08172c",
-  "theme_color": "#08172c",
-  "icons": [
-    {
-      "src": "assets/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+  "id":"./",
+  "name":"J-3912 Concept V1.2 — Controle Integrado de Nível e Vazão",
+  "short_name":"J-3912 Concept",
+  "description":"Malha completa LT-39152, dois LICs em AUTO, SS-DUAL, rotação J-3912 e fluxo mínimo com simulações interativas.",
+  "start_url":"./",
+  "scope":"./",
+  "display":"standalone",
+  "background_color":"#081420",
+  "theme_color":"#0b1725",
+  "lang":"pt-BR",
+  "orientation":"any",
+  "icons":[
+    {"src":"./assets/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"./assets/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
   ]
 }
