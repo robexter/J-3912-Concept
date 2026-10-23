@@ -1,39 +1,39 @@
-# J-3912 Concept — One-page / PWA
+# J-3912 Concept — V1.1 • Malha completa de nível, vazão e fluxo mínimo
 
-Aplicativo offline e responsivo para estudo da estratégia de controle associada à J-3912, FIC-39164A e FIC-39164B.
+One-page responsiva e PWA para estudo da malha integrada do fundo da fracionadora E-3901 e bombas J-3912A/B.
 
-## Conteúdo
+## Estrutura que já foi confirmada
 
-- Tela original do SDCD com leitura comentada.
-- Estratégia de mesma PV do FT bifurcada para dois controladores com setpoints diferentes.
-- Simulador animado de bomba, vazão do processo, recirculação, PI de velocidade e PI de mínimo.
-- Bancada: demanda, restrição de descarga, sucção, SP-A/SP-B, MAN/AUTO, MVs, válvula travada, FT congelado, medição antes/depois do ramal e coordenação versus PIDs independentes.
-- Tendências temporais de vazões, setpoints, rotação, válvula e diagnóstico com eventos.
-- Operações Unitárias, Mecânica dos Fluidos, curvas de bombas, continuidade, balanço de energia, leis de afinidade, cavitação e proteção hidráulica.
-- Nove cenários de treinamento CIC, 14 questões de avaliação embaralhadas, checklist de confirmação da filosofia real e fontes.
+- LT-39152 mede o nível do fundo da E-3901 e alimenta simultaneamente LIC-39152 e LIC-39152A, ambos em AUTO durante operação normal.
+- LIC-39152 atua na LV-39152, válvula que controla o nível no circuito de borra.
+- LIC-39152A envia sua saída como referência (SET) ao FIC-39164A, que atua no controle por rotação da J-3912A/B.
+- LV-39152 e controle de rotação atuam sobre uma **mesma linha de retirada de borra**, sem caminhos diferentes à armazenagem.
+- FT-39164A e FT-39164B são redundantes. O bloco SS-DUAL FS-39164A seleciona a PV a ser fornecida aos dois controladores de vazão. Em AUTO, a qualidade BAD do FT em operação permite seleção de outro FT GOOD; em MAN o operador define o canal.
+- FIC-39164B controla FV-39164 (recirculação de mínimo).
+- FIC-39164A: PB 60, I 15. FIC-39164B: PB 300, I 20.
 
-## Publicar no GitHub Pages
+## Melhorias V1.1
 
-1. Crie um repositório chamado `J-3912-Concept` (ou use outro nome).
-2. Envie **o conteúdo desta pasta** para a raiz do repositório (index.html, app.css, app.js, sw.js, manifest.webmanifest e pasta assets). Não envie apenas o ZIP, nem acrescente uma pasta extra envolvendo tudo.
-3. Em Settings > Pages, selecione Deploy from a branch, branch main, pasta /(root).
-4. Abra `https://SEU-USUARIO.github.io/J-3912-Concept/` substituindo seu usuário; o PWA funciona via HTTPS.
-5. No navegador compatível, use **Instalar App** ou Adicionar à tela inicial.
+- Nova aba principal **Malha completa · Interativa**, com LT, os dois LICs, LV, cascata de rotação, SS-DUAL e FV em uma única bancada dinâmica.
+- Simulador com duas malhas de nível inicialmente em AUTO, SPs ajustáveis exclusivamente didáticos, variações de entrada e perda de carga, tendência de nível, vazões, rotação, LV e FV.
+- SS-DUAL com modo AUTO/MAN, qualidade GOOD/BAD independente para FT-A/FT-B, erro de medição não diagnosticado e registro de eventos da seleção.
+- Testes predefinidos: nível subindo, nível caindo, SPs de LICs diferentes, maior resistência, FT-A BAD, seleção MAN com FT BAD e mínimo travado fechado.
+- Documentação funcional reescrita considerando a malha completa; diagramas, análise de interação/compensação entre controle de nível por LV e rotação e explicações sobre o balanço de massa.
+- Bancada hidráulica anterior preservada em aba própria para exercícios isolados, **identificada como modelo reduzido e não como malha real completa**.
+- Inclusão de captura completa do SDCD, conteúdos de Mecânica dos Fluidos, questões adicionais de avaliação CIC e atualização do cache PWA.
 
-## Atualizações e cache
+## Informações não confirmadas (não inventadas)
 
-O Service Worker usa uma identificação de versão no começo do arquivo `sw.js`. Em atualizações, altere `CACHE_VERSION` (ex.: `j3912-concept-v2-...`), publique todos os arquivos e use **↻ Atualizar** no aplicativo. As páginas e scripts usam política de rede primeiro, com retorno ao cache no modo offline. Em celulares, ao reabrir o aplicativo, uma checagem de atualização também é solicitada.
+Setpoints e ganhos dos dois LICs, localização dos FT-A/B relativamente ao reciclo, destino físico do retorno, unidade real do parâmetro integral I, prioridade quando ambos os FT estão GOOD, respostas exatas de falhas BAD em MAN e lógica de coordenação das malhas. Para fins didáticos, o PI assume I em segundos e as curvas de bombeamento, limites e ganhos dos LICs são arbitrados. Nunca utilizar números ou respostas do simulador como autorização para manobras na refinaria.
 
-## Premissas e limitações
+## Como publicar no GitHub Pages
 
-**Os valores demonstrativos não são setpoints autorizados de operação.** A captura confirma dois FICs em MAN e o usuário confirmou um FT compartilhado com dois SPs. A interpretação de A como rotação e B como recirculação é a hipótese operacional adotada. Falta confirmação da posição do FT e dos blocos de lógica do SDCD. A coordenação por prioridade selecionável no simulador é uma hipótese pedagógica, não uma alegação de que existe override na planta.
+1. Extraia o ZIP e abra a pasta `J-3912-Concept`.
+2. Envie **todo o conteúdo INTERNO dessa pasta** para a raiz do repositório `robexter/J-3912-Concept`, substituindo os arquivos com os mesmos nomes: `index.html`, `app.js`, `app.css`, `sw.js`, `manifest.webmanifest`, `README.md`, `integrado.js`, `integrado.css` e pasta `assets`.
+3. Confirme que `integrado.js`, `integrado.css` e `assets/malha-completa-j3912.jpg` realmente estão na raiz / subpasta indicada.
+4. Aguarde a publicação do GitHub Pages e acesse `https://robexter.github.io/J-3912-Concept/`.
+5. Se o app já estiver instalado, abra o módulo, toque em **↻ Atualizar** e recarregue. O Service Worker usa `CACHE_VERSION` = `j3912-concept-v1-1-20261022-01`.
 
-O modelo usa uma curva simplificada `H = H0(N) - kQ²`, resistências hidráulicas nos dois ramos, dinâmica de primeira ordem e controles PI discretos. Serve para ilustrar respostas e interações, não reproduz controles reais, intertravamentos, margens de NPSH nem a resposta transitória do equipamento.
+## Responsividade e instalação
 
-## Fontes gerais
-
-- Hydraulic Institute / Pumps & Systems — https://www.pumpsandsystems.com/article/hydraulic-institute-pump-faqs-april-2010/
-- KSB — https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/operating-behaviour-1118222
-- Chemical Processing — https://www.chemicalprocessing.com/processing-equipment/fluid-handling/article/11374851/solids-and-fluid-handling-watch-out-with-variable-speed-pumping-chemical-processing
-
-Nenhuma fonte externa utilizada descreve a lógica real da J-3912. O modelo é de estudo e não se conecta ao equipamento.
+HTML/CSS/JS locais, ícones 192×192 / 512×512, manifesto standalone e SW cache de assets essenciais. Os novos controles usam empilhamento responsivo e a interface não depende de bibliotecas remotas. Em navegador compatível, a instalação é disponibilizada conforme condições do próprio sistema.
