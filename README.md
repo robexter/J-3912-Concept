@@ -63,3 +63,12 @@ HTML/CSS/JS locais, ícones 192×192 / 512×512, manifesto standalone e SW cache
 - Curva hidráulica redimensionada ao abrir seu tópico; simulação de afinidade mantida.
 - IMPORTANTE: a publicação V1.2 continua no GitHub até o usuário substituir os arquivos do repositório. Enviar o ZIP não atualiza automaticamente o GitHub Pages.
 - Após publicar, conferir no DevTools o arquivo `app.css` novo e a marca `V1.2.2`. Se o PWA continuar antigo, botão Atualizar + fechar/reabrir, ou limpar apenas os dados do site para testar.
+
+
+## V1.2.4 — Responsividade e visualização da malha (25/10/2026)
+
+- Seção Operações Unitárias e Mecânica dos Fluidos: atalhos em grade 2×2 no mobile, painéis expansíveis com dimensões adaptáveis, gráfico e fórmulas em largura variável, legendas reorganizadas e controles de afinidade sem corte horizontal. Os 12 tópicos e todos os textos foram mantidos.
+- Captura da malha completa: mantém a imagem fornecida e adiciona controle de ampliação com rolagem horizontal dentro de um diálogo acessível.
+- Atualização de cache do Service Worker incluindo a nova imagem PNG para consulta offline.
+- Nenhuma alteração nas lógicas didáticas do simulador, nos modos CAS/AUTO/MAN, no SS-DUAL ou no conteúdo das avaliações.
+- A precisão dos setpoints reais do processo permanece pendente e todos os valores não confirmados continuam didáticos.

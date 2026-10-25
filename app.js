@@ -284,3 +284,31 @@ function prepareFundamentosCards(){
 }
 
 window.addEventListener('DOMContentLoaded',init);
+
+// V1.2.4: ampliação acessível da captura da malha completa em tela pequena.
+function setupMalhaZoom(){
+ const figure=document.querySelector('.int-full-photo');
+ const image=figure?.querySelector('img');
+ if(!figure || !image || figure.querySelector('.malha-zoom-button'))return;
+ const btn=document.createElement('button');
+ btn.type='button';btn.className='malha-zoom-button';btn.textContent='⊕ Ampliar imagem da malha completa';
+ const caption=figure.querySelector('figcaption');
+ if(caption)figure.insertBefore(btn,caption);else figure.appendChild(btn);
+ const dialog=document.createElement('dialog');dialog.className='malha-image-dialog';
+ dialog.setAttribute('aria-label','Malha completa da J-3912 ampliada');
+ const header=document.createElement('div');header.className='malha-dialog-header';
+ const h=document.createElement('strong');h.textContent='Arquitetura completa — J-3912';
+ const close=document.createElement('button');close.type='button';close.className='malha-dialog-close';close.textContent='Fechar ×';
+ header.append(h,close);
+ const area=document.createElement('div');area.className='malha-image-scroll';area.tabIndex=0;
+ const large=document.createElement('img');large.src=image.getAttribute('src');large.alt=image.alt;
+ area.appendChild(large);
+ const tip=document.createElement('p');tip.className='malha-dialog-tip';tip.textContent='Deslize a imagem para a esquerda e direita para ler os tags e conexões.';
+ dialog.append(header,area,tip);document.body.appendChild(dialog);
+ let priorFocus=null;
+ btn.addEventListener('click',()=>{priorFocus=document.activeElement;if(dialog.showModal){dialog.showModal();area.scrollLeft=0;close.focus();}else{window.open(large.src,'_blank','noopener');}});
+ close.addEventListener('click',()=>dialog.close());
+ dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+ dialog.addEventListener('close',()=>{if(priorFocus && priorFocus.isConnected)priorFocus.focus()});
+}
+window.addEventListener('DOMContentLoaded',setupMalhaZoom);
